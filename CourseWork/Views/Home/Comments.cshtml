@@ -1,0 +1,77 @@
+﻿@model Comment
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "Форум";
+}
+
+<div class="col-12 pb-3">
+    <h2 class="display-5 text-center">Начало сообщений</h2>
+</div>
+
+@foreach (var comment in ViewBag.AllComments)
+{
+
+    @if (!comment.IsHidden || User.IsInRole("moderator"))
+    {
+        <div class="row py-3">
+            <div class="col-7 border-bottom border-dark" style="font-size: 1.5rem;">
+                @if (@comment.User.FullName != null)
+                {
+                    <p>@comment.User.FullName (@comment.User.Username) – @comment.DateOfComment</p>
+                }
+                else
+                {
+                    <p>@comment.User.Username – @comment.DateOfComment</p>
+                }
+            </div>
+
+            @if (User.IsInRole("moderator"))
+            {
+                <div class="col-1 border-bottom border-dark">
+                    @if (comment.IsHidden)
+                    {
+                        <form method="post" asp-controller="Home" asp-action="ShowComment" asp-route-id="@comment.Id">
+                            <button type="submit" class="btn btn-secondary btn-sm">Показать</button>
+                        </form>
+                    }
+                    else
+                    {
+                        <form method="post" asp-controller="Home" asp-action="HideComment" asp-route-id="@comment.Id">
+                            <button type="submit" class="btn btn-danger btn-sm">Скрыть</button>
+                        </form>
+                    }
+                </div>
+            }
+        </div>
+        <div class="row pb-3">
+            <div class="col-12" style="font-size: 1.25rem; text-align: justify;">
+                @comment.CommentText
+            </div>
+        </div>
+    }
+}
+
+@if (User.Identity.IsAuthenticated)
+{
+<div class="row py-3 align-bottom" style="font-size: 1.25rem;">
+    <div class="col-8">
+        <form method="post" asp-controller="Home" asp-action="Comments">
+            <div class="mb-3">
+                <label class="form-label" style="font-size: 1.5rem;">Ваше сообщение</label>
+                <textarea asp-for="CommentText" class="form-control" rows="4" placeholder="Введите сообщение здесь..." required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Отправить</button>
+        </form>
+    </div>
+</div>
+}
+else
+{
+<div class="row pb-3 text-center lead">
+    <div class="col-12">
+        Для того чтобы отправить сообщение, необходимо <a asp-controller="Home" asp-action="Registration" style="text-decoration: none;">зарегистрироваться</a>.
+    </div>
+</div>
+}

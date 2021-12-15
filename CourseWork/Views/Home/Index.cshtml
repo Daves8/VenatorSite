@@ -1,0 +1,95 @@
+﻿@{
+    ViewData["Title"] = "Главная";
+}
+
+<div class="row rounded" style="background-image: url(img/backgr1.jpg); padding-top: 5rem; padding-bottom: 5rem;">
+    <div class="col-12">
+        <h1 class="display-4 text-center text-white floating">Venator Online</h1>
+    </div>
+</div>
+<div class="row py-5">
+    <div class="col-12 text-justify lead" style="font-size: 1.5rem;">
+        <p>
+            Venator Online – специальная версия игры Venator с возможностью совметной игры в режиме мультиплеер на два игрока.
+            Действия разворачиваются во времена средневековья в небольшом селении возле речки. Каждое действие игрока имеет
+            последствия и может влиять на ход его личной истории.
+        </p>
+    </div>
+</div>
+<div class="row border border-dark rounded" style="background-image: url(img/backgr2.jpg);">
+    <div class="col-12">
+        <h3 class="display-5 text-center">Механики</h3>
+    </div>
+</div>
+<div class="row text-center py-4 text-decoration-underline" style="font-size: 1.5rem;">
+    <div class="col-4">
+        Бой на ножах
+    </div>
+    <div class="col-4">
+        Бой на мечах
+    </div>
+    <div class="col-4">
+        Стрельба из лука
+    </div>
+</div>
+<div class="row pb-5" style="font-size: 1.25rem;">
+    <div class="col-4">
+        <img src="~/img/knife.jpg" class="img-fluid rounded" />
+        <br><br>
+        Удары наносятся с большой скоростью и наносят низкий урон противнику.
+    </div>
+    <div class="col-4">
+        <img src="~/img/sword.jpg" class="img-fluid rounded" />
+        <br><br>
+        Удары наносятся с медленной скоростью, но отнимают большое количество запаса здоровья.
+        Во время битвы с помощью меча, игрок может провести комбо – когда два раза следующий удар наносится в то время,
+        когда закончился предыдущий, можно нанести третий удар, который нанесет больший урон, чем обычный.
+    </div>
+    <div class="col-4">
+        <img src="~/img/bow.jpg" class="img-fluid rounded" />
+        <br><br>
+        Персонаж может наносить определенное количество урона на расстоянии, не получая его в ответ.
+        Рекомендуется использовать во время охоты, чтобы не получать большого вреда от животных.
+    </div>
+</div>
+<div class="row py-3">
+    <div class="col-12 border border-dark rounded" style="background-image: url(img/backgr2.jpg);">
+        <h3 class="display-5 text-center">Чем заняться?</h3>
+    </div>
+</div>
+<div class="row text-center py-4 text-decoration-underline" style="font-size: 1.5rem;">
+    <div class="col-4">
+        Охота
+    </div>
+    <div class="col-4">
+        Квесты
+    </div>
+    <div class="col-4">
+        Битва
+    </div>
+</div>
+<div class="row pb-3" style="font-size: 1.25rem;">
+    <div class="col-4">
+        <img src="~/img/hunt.jpg" class="img-fluid rounded" />
+        <br><br>
+        Для охоты нужно отправиться в лес. Не забудьте взять с собой лук, чтобы не подходить близко к животным, так
+        как они нападут как только заметят вас. Отправляйтесь на охоту вдвоем, так как это повысит шанс на успех.
+    </div>
+    <div class="col-4">
+        <img src="~/img/quest.jpg" class="img-fluid rounded" />
+        <br><br>
+        Пройдите увлекательную историю один или вместе с напарником. Для этого нужно подойти к НПС на рынке и взять
+        у него задание.
+    </div>
+    <div class="col-4">
+        <img src="~/img/battle.jpg" class="img-fluid rounded" />
+        <br><br>
+        Проверьте свое снаряжение, вступив в битву с охранниками селения. Но помните: легкого пути не будет. Как только
+        вы на него нападёте, на вас сразу же нападут остальные охранники, находящиеся поблизости.
+    </div>
+</div>
+<div class="row pb-3 text-center lead">
+    <div class="col-12">
+        Для того чтобы играть в режиме мультиплеер, необходимо <a asp-controller="Home" asp-action="Registration" style="text-decoration: none;">зарегистрироваться</a>.
+    </div>
+</div>

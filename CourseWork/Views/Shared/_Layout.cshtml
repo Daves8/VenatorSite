@@ -1,0 +1,71 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Venator Online</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/animations.css" />
+</head>
+<body style="background-image: url(img/background1.jpg); background-attachment: fixed; background-repeat: no-repeat; background-size: cover;">
+    <div id="preloader" class="preloader">
+        <div id="floatingCirclesG">
+            <div class="f_circleG" id="frotateG_01"></div>
+            <div class="f_circleG" id="frotateG_02"></div>
+            <div class="f_circleG" id="frotateG_03"></div>
+            <div class="f_circleG" id="frotateG_04"></div>
+            <div class="f_circleG" id="frotateG_05"></div>
+            <div class="f_circleG" id="frotateG_06"></div>
+            <div class="f_circleG" id="frotateG_07"></div>
+            <div class="f_circleG" id="frotateG_08"></div>
+        </div>
+    </div>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Venator Online</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Comments">Коментарии</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="News">Новости</a>
+                @if (User.IsInRole("admin"))
+                {
+                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="AllUsers">Все пользователи</a>
+                }
+                @if (User.Identity.IsAuthenticated)
+                {
+                    @User.Identity.Name
+                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Logout">Выйти</a>
+                }
+                else
+                {
+                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Login">Вход</a>
+                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Registration">Регистрация</a>
+                }
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted" style="background-color: white;">
+        <div class="container">
+            <div class="row">
+                <div class="col-6 text-left">
+                    Дремлюк Владислав
+                </div>
+                <div class="col-6 text-end">
+                    &copy; Venator Online - 2021
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/animations.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

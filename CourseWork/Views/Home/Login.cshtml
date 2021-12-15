@@ -1,0 +1,29 @@
+﻿@model User;
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "Вход";
+}
+
+<div class="row pb-5" style="font-size: 1.25rem;">
+    <div class="col-3">
+        <form method="post" asp-controller="Home" asp-action="Login">
+            <div class="mb-3">
+                <label class="form-label">Логин</label>
+                <input asp-for="Username" class="form-control" type="text" placeholder="Логин" pattern="^[a-zA-Zа-яА-Я,Ё,ё]\S{3,20}" title="Длина должна быть от 4 до 21 символов; первый символ должен быть буквой." required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Пароль</label>
+                <input asp-for="Password" class="form-control" type="password" placeholder="Пароль" pattern="\S{4,21}" title="Длина должна быть от 4 до 21 символов" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Войти</button>
+        </form>
+    </div>
+    @if (ViewBag.ErrorLogin != null)
+    {
+        <div class="col-3" style="padding-top: 2.3rem; color: red;">
+            Логин и/или пароль неверны!
+        </div>
+    }
+</div>

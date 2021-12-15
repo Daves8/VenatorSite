@@ -1,0 +1,170 @@
+﻿@model User
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "Все пользователи";
+}
+
+<div class="row border border-dark rounded py-3" style="background-image: url(img/backgr2.jpg); font-size: 1.5rem;">
+    <div class="col-1">
+        Id
+    </div>
+    <div class="col-1">
+        Логин
+    </div>
+    <div class="col-1">
+        Пароль
+    </div>
+    <div class="col-2">
+        ФИО
+    </div>
+    <div class="col-2">
+        Email
+    </div>
+    <div class="col-2">
+        Номер телефона
+    </div>
+    <div class="col-1">
+        Дата
+    </div>
+    <div class="col-2">
+        Роль
+    </div>
+</div>
+
+@foreach (var user in ViewBag.AllUsers)
+{
+    <div class="row py-3 border-bottom border-dark text-break" style="font-size: 1rem;">
+        <div class="col-1">
+            @user.Id
+        </div>
+        <div class="col-1">
+            @user.Username
+        </div>
+        <div class="col-1">
+            @user.Password
+        </div>
+        <div class="col-2">
+            @user.FullName
+        </div>
+        <div class="col-2">
+            @user.Email
+        </div>
+        <div class="col-2">
+            @user.PhoneNumber
+        </div>
+        <div class="col-1">
+            @user.DateOfRegistration
+        </div>
+        <div class="col-1" style="font-size: 0.75rem;">
+            <form method="post" asp-controller="Home" asp-action="ChangeRoles">
+                <input type="hidden" name="id" value="@user.Id" />
+                @foreach (var role in ViewBag.AllRoles)
+                {
+                    <div class="form-check">
+                        @if (RolesManager.GetAllUserRoles(user).Contains(role))
+                        {
+                            <input class="form-check-input" type="checkbox" name="roles" value="@role" checked>
+                        }
+                        else
+                        {
+                            <input class="form-check-input" type="checkbox" name="roles" value="@role">
+                        }
+                        <label class="form-check-label">@role</label>
+                    </div>
+                }
+                <button type="submit" class="btn btn-info btn-sm">Изменить</button>
+            </form>
+        </div>
+        <div class="col-1">
+            <form method="post" asp-controller="Home" asp-action="DeleteUser" asp-route-id="@user.Id">
+                <button type="submit" class="btn btn-danger btn-sm">Удалить</button>
+            </form>
+        </div>
+    </div>
+}
+
+<!--
+
+    AddRole - 2
+
+    RemoveRole - 3
+
+
+    ViewBag.CreateDelete
+    ViewBag.Message
+-->
+
+@if (ViewBag.CreateDelete != 1)
+{
+    if (ViewBag.CreateDelete == 2)
+    {
+<div class="row py-5" style="font-size: 1.25rem;">
+    <div class="col-2">
+        <form method="post" asp-controller="Home" asp-action="AddRole">
+            <div class="mb-3">
+                <label class="form-label">Роль</label>
+                <input class="form-control" type="text" name="role" placeholder="Роль" required>
+                @if (ViewBag.Message != "")
+                {
+                    <label style="font-size: 80%; color: #dc3545;">
+                        @ViewBag.Message
+                    </label>
+                }
+            </div>
+            <button type="submit" class="btn btn-primary">Добавить</button>
+        </form>
+    </div>
+
+    <div class="col-2">
+        <form method="get" asp-controller="Home" asp-action="RemoveRole">
+            <button type="submit" class="btn btn-danger">Удалить роль</button>
+        </form>
+    </div>
+</div>
+    }
+    else if (ViewBag.CreateDelete == 3)
+    {
+<div class="row py-5" style="font-size: 1.25rem;">
+    <div class="col-2">
+        <form method="get" asp-controller="Home" asp-action="AddRole">
+            <button type="submit" class="btn btn-primary">Добавить роль</button>
+        </form>
+    </div>
+
+    <div class="col-2">
+        <form method="post" asp-controller="Home" asp-action="RemoveRole">
+            <div class="mb-3">
+                <label class="form-label">Роль</label>
+                <input class="form-control" type="text" name="role" placeholder="Роль" required>
+                @if (ViewBag.Message != "")
+                {
+                    <label style="font-size: 80%; color: #dc3545;">
+                        @ViewBag.Message
+                    </label>
+                }
+            </div>
+            <button type="submit" class="btn btn-danger">Удалить</button>
+        </form>
+    </div>
+</div>
+    }
+}
+else
+{
+<div class="row py-5" style="font-size: 1.25rem;">
+    <div class="col-2">
+        <form method="get" asp-controller="Home" asp-action="AddRole">
+            <button type="submit" class="btn btn-primary">Добавить роль</button>
+        </form>
+    </div>
+
+    <div class="col-2">
+        <form method="get" asp-controller="Home" asp-action="RemoveRole">
+            <button type="submit" class="btn btn-danger">Удалить роль</button>
+        </form>
+    </div>
+</div>
+
+}

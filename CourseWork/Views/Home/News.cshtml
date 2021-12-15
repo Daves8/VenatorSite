@@ -1,0 +1,71 @@
+﻿@model News
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "Новости";
+}
+
+<div class="col-12 pb-3">
+    <h2 class="display-5 text-center">Начало новостей</h2>
+</div>
+
+@foreach (var news in ViewBag.AllNews)
+{
+    @if (!news.IsHidden || User.IsInRole("moderator"))
+    {
+<div class="row" style="font-size: 1.5rem;">
+    <div class="col-auto pt-3 border-bottom border-dark">@news.NewsTitle</div>
+</div>
+<div class="row py-2" style="font-size: 1.25rem;">
+    <div class="col-12" style="text-align: justify;">@news.NewsText</div>
+</div>
+<div class="row">
+    @if (User.IsInRole("moderator"))
+    {
+        <div class="col-9 text-end">
+            @if (news.IsHidden)
+            {
+                <form method="post" asp-controller="Home" asp-action="ShowNews" asp-route-id="@news.Id">
+                    <button type="submit" class="btn btn-secondary btn-sm">Показать</button>
+                </form>
+            }
+            else
+            {
+                <form method="post" asp-controller="Home" asp-action="HideNews" asp-route-id="@news.Id">
+                    <button type="submit" class="btn btn-danger btn-sm">Скрыть</button>
+                </form>
+            }
+        </div>
+        <div class="col-3 text-end">
+            <em>@news.User.Username – @news.DateOfNews</em>
+        </div>
+    }
+    else
+    {
+        <div class="col-12 text-end">
+            <em>@news.User.Username – @news.DateOfNews</em>
+        </div>
+    }
+</div>
+    }
+}
+
+@if (User.IsInRole("moderator"))
+{
+    <div class="row py-3 align-bottom" style="font-size: 1.25rem;">
+        <div class="col-7">
+            <form method="post" asp-controller="Home" asp-action="News">
+                <div class="mb-3">
+                    <label class="form-label" style="font-size: 1.5rem;">Заголовок</label>
+                    <input asp-for="NewsTitle" class="form-control" type="text" placeholder="Заголовок..." required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" style="font-size: 1.5rem;">Новость</label>
+                    <textarea asp-for="NewsText" class="form-control" rows="4" placeholder="Введите новость здесь..." required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Опубликовать</button>
+            </form>
+        </div>
+    </div>
+}
